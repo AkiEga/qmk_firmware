@@ -25,6 +25,13 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
+enum MY_KEY {
+    KC_MY_KEY_GLOBAL_ID = SAFE_RANGE,
+    KC_MY_KEY_GLOBAL_PASS,
+    KC_MY_KEY_ADMIN_ID,
+    KC_MY_KEY_ADMIN_PASS,
+};
+
 #define LAYOUT( \
     k00, k01, k02, k03 \
 ) \

@@ -16,20 +16,19 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
-    LCTL(KC_Z),  LCTL(KC_X),  LCTL(KC_C), LCTL(KC_V) \
-  )
+[0] = LAYOUT( /* Base */
+  KC_MY_KEY_GLOBAL_ID, KC_MY_KEY_GLOBAL_PASS, KC_MY_KEY_ADMIN_ID,  KC_MY_KEY_ADMIN_PASS \
+),
 };
 
-void matrix_init_user(void) {
+// void matrix_init_user(void) {
 
-}
+// }
 
-void matrix_scan_user(void) {
+// void matrix_scan_user(void) {
 
-}
+// }
 
-void led_set_user(uint8_t usb_led) {
+// void led_set_user(uint8_t usb_led) {
 
-}
-
+// }
