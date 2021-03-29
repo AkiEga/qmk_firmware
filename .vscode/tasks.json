@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "build",
             "type": "shell",
             // "command": "qmk",
             // "args": [
@@ -12,17 +12,27 @@
             //     "-kb",
             //     "jisplit89",
             //     "-km",
-            //     "default"
+            //     "ega"
             // ],
             "command": "make",
             "args": [
                 "-j",
                 "jisplit89:ega",
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
+        },
+        {
+            "label": "flash",
+            "type": "shell",
+            "command": "qmk",
+            "args": [
+                "flash",
+                "-kb",
+                "jisplit89",
+                "-km",
+                "ega"
+            ],
+            "group": "build"
         }
     ]
 }

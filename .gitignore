@@ -80,3 +80,4 @@ user_song_list.h
 
 # private data
 keyboards/meishi2/private_data.h
+keyboards/jisplit89/keymaps/ega/my_setting.h

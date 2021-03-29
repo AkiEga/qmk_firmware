@@ -17,6 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "keymap_jp.h"
+#include "sendstring_jis.h"
+
+#include "my_setting.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -27,7 +30,9 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  RGB_RST = SAFE_RANGE
+  RGB_RST = SAFE_RANGE,
+  KC_ID,
+  KC_PASS
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -54,7 +59,7 @@ LT(_ADJUST,KC_ZKHK),KC_1,  KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
+      XXXXXXX, KC_ID,   KC_PASS, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -64,17 +69,23 @@ LT(_ADJUST,KC_ZKHK),KC_1,  KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    #ifdef RGBLIGHT_ENABLE
-      case RGB_RST:
-          if (record->event.pressed) {
-              uint8_t mode = rgblight_get_mode();
-              eeconfig_update_rgblight_default();
-              rgblight_enable();
-              rgblight_mode(mode);
-          }
-          break;
-    #endif
+    if (record->event.pressed) {
+        switch (keycode) {
+        // #ifdef RGBLIGHT_ENABLE
+        //     case RGB_RST:
+        //         uint8_t led_mode = rgblight_get_mode();
+        //         eeconfig_update_rgblight_default();
+        //         rgblight_enable();
+        //         rgblight_mode(led_mode);
+        //         break;
+        // #endif
+            case KC_ID:
+                SEND_STRING(STR_ID);
+                break;
+            case KC_PASS:
+                SEND_STRING(STR_PASS);
+                break;
+        }
     }
     return true;
 }
